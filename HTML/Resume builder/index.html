@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <title>Resume Builder</title>
+    <style>
+        .main{
+            display: flex;
+            padding: 1rem 1rem;
+            font-family: "Montserrat", serif;
+        }
+        .resume-builder{
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+        }
+        .resume-preview{
+            width: 70%;
+        }
+        .resumeForm{
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .resumeOutput{
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 1.5rem;
+            border: 1px solid black;
+        }
+        .heading{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <section class="resume-builder">
+        <div><h2>Build Your Resume</h2>
+        <button onClick="darkMode()">darkMode</button>
+        </div>
+        <form class="resumeForm">
+            <label>Full Name: <br><input type="text" id="fullName" required></label>
+            <label>Email: <br><input type="email" id="email" required></label>
+            <label>Phone: <br><input type="tel" id="phone" required></label>
+            <label>Profile Picture: <br><input type="file" id="profilePic" accept="image/*"></label>
+            <label>College: <br><input type="text" id="college" required></label>
+            <label>Branch: <br><input type="text" id="branch" required></label>
+            <label>Company: <br><input type="text" id="company" required></label>
+            <label>Role: <br><input type="text" id="role" required></label>
+            <label>Work: <br><textarea id="work"></textarea></label>
+            <button type="submit">Generate Resume</button>
+        </form>
+    </section>
+    
+    <section class="resume-preview">
+        <h2>Resume Preview</h2>
+        <div class="resumeOutput">
+            <div class="heading">
+                <div>
+                    <h1 class="fullName">John Doe</h1>
+                    <div>
+                        <p class="email">email</p>
+                        <p class="phone">PhoneNo</p>
+                    </div>
+                </div>
+                <img src="https://placehold.co/600x400" alt="profile photo" width="150px" height="150px" id="profileImage">
+            </div>
+            <div>
+                <h2>Education</h2>
+                <h3 class="college">Indian Institute of Technology</h3>
+                <h4 class="branch">Bachelor of Technology in Computer Science</h4>
+            </div>
+            <div>
+                <h2>Experience</h2>
+                <h3 class="company">Company Name</h3>
+                <h4 class="role">Role</h4>
+                <p class="work">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo quis optio in eligendi blanditiis. Magnam reiciendis voluptate labore rerum cumque veniam consequuntur eos libero omnis.</p>
+            </div>
+            <div>
+                <h2>Skills</h2>
+                <ul class="Skills">
+                </ul>
+            </div>
+        </div>
+        <button id="downloadPDF">Download as PDF</button>
+    </section>
+    </div>
+
+    <script>
+        let inputs = ["fullName","email","phone","college","branch","company","role"]
+        function addEventListeners(name){
+            document.querySelector(`#${name}`).onchange = (e)=>{
+                document.querySelector(`.${name}`).textContent = e.target.value
+            }
+        }
+        inputs.forEach(input=>addEventListeners(input))
+
+        document.getElementById("profilePic").addEventListener("change", function(event) {
+    const file = event.target.files[0]; // Get the uploaded file
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById("profileImage").src = e.target.result; // Display the image
+        };
+        reader.readAsDataURL(file); // Convert image to Base64
+    }
+});
+        function darkMode(){
+            if( document.body.style.backgroundColor=="white"){
+                document.body.style.backgroundColor = "black"
+                document.body.style.color = "white"
+            }
+            else{
+                document.body.style.backgroundColor = "white"
+                document.body.style.color = "black"
+            }
+        }
+    </script>
+</body>
+</html>
